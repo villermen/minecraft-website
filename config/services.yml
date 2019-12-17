@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        public: false
+
+    Villermen\Minecraft\Controller\:
+        resource: '../src/Controller/*'
+        public: true
+
+    Villermen\Minecraft\Service\:
+        resource: '../src/Service/*'

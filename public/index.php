@@ -1,5 +1,19 @@
 <?php
-//load modules required for every page
+
+use Symfony\Component\HttpFoundation\Request;
+use Villermen\Minecraft\App;
+
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+$request = Request::createFromGlobals();
+$app = new App();
+$response = $app->run($request);
+$response->prepare($request);
+$response->send();
+
+exit();
+
+
 require_once("minecraft/modules/mysql.php");
 require_once("minecraft/modules/misc.php");
 require_once("minecraft/modules/account.php");
