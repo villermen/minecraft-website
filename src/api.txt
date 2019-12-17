@@ -1,0 +1,53 @@
+MODULES
+
+misc.php
+string Misc::GenerateRandomString(int $length, string $chars)
+string Misc::TimeAgo(int $time)
+
+account.php
+class Account
+Account $account_loggedInAccount
+void Account_UpdateProfile(string $UUID)
+string Account_FormatUUID(string $UUID)
+string Account_DeformatUUID(string $UUID)
+string Account_ResolveUUID(string $nameOrUUID)
+string Account_ResolveName(string $nameOrUUID, bool $forceMojang = false)
+Account/false Account_GetDetails(string $nameOrUUID)
+bool Account_Login(string $nameOrUUID, string $password, bool $persistent)
+void Account_Logout()
+void Account_UpdateLoggedInAccount()
+int Account_RankNameToValue(string $rankName)
+
+rcon.php
+bool Rcon::Connect(string $host, int $port, string $password)
+string/false Rcon::RunCommand($string command)
+
+pex.php
+string/false Pex::GetRank(string $nameOrUUID)
+bool Pex::SetRank(string $nameOrUUID, string $rank)
+bool Pex::SetPrefix(string $nameOrUUID, string $prefix)
+bool Pex::SetSuffix(string $nameOrUUID, string $suffix)
+
+bans.php
+void Bans::UpdateBans()
+array Bans::GetBans()
+bool Bans::IsBanned(string $nameOrUUID)
+
+skin.php
+string/false Skin::GetSkin(string $nameOrUUID)
+string Skin::CreatePlayerhead(string $nameOrUUID, int $size)
+
+serverinfo.php
+array/false Serverinfo::GetOnlinePlayers()
+
+forum.php
+class Thread
+class Post
+string Forum::ParseBody(string $body)
+Thread/false Forum::GetThread(int $threadID)
+array(Thread)/false Forum::GetThreads(string $viewerNameOrUUID = false, array(string) $viewPrivileges = ["everyone"])
+array(Post)/false Forum::GetPosts(int $threadID, int $startIndex = 0, int $limit = 0, int $minTime = 0, int &$totalPosts = 0)
+Post/false Forum::GetPost(int $postID)
+void Forum::DeletePost(int $postID)
+int/false Forum::CreateThread(string $creatorUUID, string $title, string $canView, string $canPost, bool $sticky)
+bool Forum::CreatePost(int $threadID, string $creatorUUID, string $body)
