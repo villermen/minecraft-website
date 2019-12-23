@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             serverInfo.players.forEach((player) => {
                 const img = document.createElement('img');
                 img.classList.add('bannerplayerhead');
-                img.src = `{{ path('api/playerhead') }}?s=18&p=${player.uuid}`;
+                img.src = `{{ path('api/player-head') }}?size=18&player=${player.uuid}`;
                 img.title = player.name;
                 element.appendChild(img);
             });

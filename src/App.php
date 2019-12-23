@@ -16,7 +16,10 @@ class App
 {
     protected const ROUTES = [
         '/' => [SimplePageController::class, 'homepageAction'],
+        '/rules' => [SimplePageController::class, 'rulesAction'],
+        '/online' => [SimplePageController::class, 'onlineAction'],
         '/api/server-info' => [ApiController::class, 'serverInfoAction'],
+        '/api/player-head' => [ApiController::class, 'playerHeadAction'],
     ];
 
     public function run(Request $request): Response
@@ -25,7 +28,7 @@ class App
 
         $path = $request->getPathInfo();
 
-        $container = self::createContainer();
+        $container = self::createContainer($request, $response);
 
         $route = (self::ROUTES[$path] ?? null);
 
@@ -39,11 +42,13 @@ class App
         return $response;
     }
 
-    public static function createContainer(): ContainerInterface
+    public static function createContainer(?Request $request = null, ?Response $response = null): ContainerInterface
     {
         $container = new ContainerBuilder();
         $loader = new YamlFileLoader($container, new FileLocator(AppConfig::PROJECT_ROOT . '/config'));
         $loader->load('services.yml');
+        $container->set('request', ($request ?? new Request()));
+        $container->set('response', ($response ?? new Response()));
         $container->compile();
         return $container;
     }

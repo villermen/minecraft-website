@@ -25,41 +25,17 @@
             <div class="hline"></div>
             <div class="navbarcontainer">
                 <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/') }}">Home</a>
+                <a class="navbarlink{% if request.pathInfo == '/' %} active{% endif %}" href="{{ path('/') }}">Home</a>
                 <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/worlds') }}">Worlds</a>
+                <a class="navbarlink{% if request.pathInfo == '/worlds' %} active{% endif %}" href="{{ path('/worlds') }}">Worlds</a>
                 <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/ranks') }}">Ranks</a>
+                <a class="navbarlink{% if request.pathInfo == '/ranks' %} active{% endif %}" href="{{ path('/ranks') }}">Ranks</a>
                 <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/rules') }}">Rules</a>
+                <a class="navbarlink{% if request.pathInfo == '/rules' %} active{% endif %}" href="{{ path('/rules') }}">Rules</a>
                 <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/plugins') }}">Plugins</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/donating') }}">Donating</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/voting') }}">Voting</a>
+                <a class="navbarlink{% if request.pathInfo == '/donating' %} active{% endif %}" href="{{ path('/donating') }}">Donating</a>
                 <div class="navbarspacer"></div>
                 <a class="navbarlink" href="{{ path('/map/') }}" target="_blank">Map</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/login') }}">Log in</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/logout') }}">Log out</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/signup') }}">Sign up</a>
-                <div class="navbarspacer"></div>
-            </div>
-            <div class="hline"></div>
-            <div class="navbarcontainer">
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/account') }}">Villermen</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/adminhelp') }}">Admin help</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/adminlookup') }}">Lookup</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/adminbans') }}">Bans</a>
-                <div class="navbarspacer"></div>
-                <a class="navbarlink" href="{{ path('/villermen') }}">Sup</a>
                 <div class="navbarspacer"></div>
             </div>
             <div class="hline"></div>

@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% set title = 'Players currently online' %}
+
+{% block content %}
+    <h1>Players currently online</h1>
+    <div class="center">
+        {% for player in players %}
+            <div class="horizontalsection">
+                <img src="{{ path('/api/player-head?size=36&player=' ~ player.uuid) }}" alt="{{ player.name }}" />
+                <div>{{ player.name }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

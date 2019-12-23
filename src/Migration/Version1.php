@@ -19,6 +19,7 @@ class Version1 implements MigrationInterface
         $this->database->query('CREATE TABLE profile_cache (
             raw_uuid CHAR(32) PRIMARY KEY NOT NULL,
             name VARCHAR(16) NOT NULL,
+            skin_url VARCHAR(255) NULL,
             cache_time INT(11) NOT NULL
         )');
     }
