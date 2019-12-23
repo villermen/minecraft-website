@@ -2,20 +2,26 @@
 
 namespace Villermen\Minecraft\Service;
 
-use Villermen\Minecraft\App;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class ViewRenderer
 {
-    // TODO: Inject these in a smarter way (maybe through request or dedicated config service)
-    protected const VIEW_ROOT = App::PROJECT_ROOT . '/view';
+    /** @var Environment */
+    protected $twig;
 
-    // TODO: Layout
-    // TODO: Use parameters
+    public function __construct(AppConfig $config, TwigExtensions $twigExtensions)
+    {
+        $loader = new FilesystemLoader($config['project_root'] . '/view');
+        $this->twig = new Environment($loader);
+
+        foreach ($twigExtensions->createFunctions() as $twigFunction) {
+            $this->twig->addFunction($twigFunction);
+        }
+    }
 
     public function renderView(string $viewFile, array $parameters = []): string
     {
-        ob_start();
-        include(self::VIEW_ROOT . '/' . $viewFile);
-        return ob_get_clean();
+        return $this->twig->render($viewFile, $parameters);
     }
 }

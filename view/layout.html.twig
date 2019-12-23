@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% if title is defined %}{{ title }} - {% endif %}Villermen Minecraft Server</title>
+        <link rel="icon" type="image/x-icon" href="{{ path('favicon.ico') }}" />
+        <link type="text/css" rel="stylesheet" href="{{ path('css/default.css') }}" />
+        <script>
+            {{ include('include/main.js.twig') }}
+        </script>
+    </head>
+    <body>
+        <div class="body">
+            <div class="bannercontainer">
+                <img class="banner" src="{{ path('css/banner_title.png') }}" alt="" style="background-image:url('{{ random_banner() }}')" />
+                <div class='bannertext bannersubtitle'>A minecraft creative/survival server</div>
+                <div class='bannertext bannerversion'></div>
+                <a href="{{ path('/online') }}" class="bannertext bannerplayers"></a>
+            </div>
+            <div class="hline"></div>
+            <div class="navbarcontainer">
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/') }}">Home</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/worlds') }}">Worlds</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/ranks') }}">Ranks</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/rules') }}">Rules</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/plugins') }}">Plugins</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/donating') }}">Donating</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/voting') }}">Voting</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/map') }}" target="_blank">Map</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/login') }}">Log in</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/logout') }}">Log out</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/signup') }}">Sign up</a>
+                <div class="navbarspacer"></div>
+            </div>
+            <div class="hline"></div>
+            <div class="navbarcontainer">
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/account') }}">Villermen</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/adminhelp') }}">Admin help</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/adminlookup') }}">Lookup</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/adminbans') }}">Bans</a>
+                <div class="navbarspacer"></div>
+                <a class="navbarlink" href="{{ path('/villermen') }}">Sup</a>
+            </div>
+            <div class="hline"></div>
+            <div class="content">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="hline"></div>
+            <div class="footer">
+                ©2011-{{ 'now'|date('Y') }} Villermen -
+                <span title="Current server time ({{ 'now'|date('T') }})">{{ 'now'|date('G:i') }}</span> -
+                <a href="{{ path('/contact') }}">contact</a> -
+                <a href="{{ path('/webdevelopment') }}">
+                    <img class="webdevelopmenticon" alt="Webdev" src="{{ path('css/chromefirefox.png') }}" />
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

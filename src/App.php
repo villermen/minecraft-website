@@ -8,14 +8,15 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Villermen\Minecraft\Controller\ApiController;
 use Villermen\Minecraft\Controller\SimplePageController;
+use Villermen\Minecraft\Service\AppConfig;
 
 class App
 {
-    public const PROJECT_ROOT = __DIR__ . '/..';
-
     protected const ROUTES = [
         '/' => [SimplePageController::class, 'homepageAction'],
+        '/api/server-info' => [ApiController::class, 'serverInfoAction'],
     ];
 
     public function run(Request $request): Response
@@ -32,12 +33,8 @@ class App
             $route = [SimplePageController::class, 'notFoundAction'];
         }
 
-        if ($route) {
-            $controller = $container->get($route[0]);
-            call_user_func([$controller, $route[1]], $request, $response);
-        } else {
-            $this->notFoundAction($request, $response);
-        }
+        $controller = $container->get($route[0]);
+        call_user_func([$controller, $route[1]], $request, $response);
 
         return $response;
     }
@@ -45,7 +42,7 @@ class App
     protected function createContainer(): ContainerInterface
     {
         $container = new ContainerBuilder();
-        $loader = new YamlFileLoader($container, new FileLocator(self::PROJECT_ROOT . '/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(AppConfig::PROJECT_ROOT . '/config'));
         $loader->load('services.yml');
         $container->compile();
         return $container;

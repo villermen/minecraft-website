@@ -1,0 +1,35 @@
+let serverInfoPromise = null;
+function getServerInfo() {
+    if (serverInfoPromise !== null) {
+        return serverInfoPromise;
+    }
+
+    serverInfoPromise = fetch('{{ path('/api/server-info') }}').then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+
+        return Promise.reject('Could not load server info.');
+    });
+    return serverInfoPromise;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.bannerversion').forEach((element) => {
+        getServerInfo().then((serverInfo) => {
+            element.textContent = `Minecraft ${serverInfo.version}`;
+        });
+    });
+
+    document.querySelectorAll('.bannerplayers').forEach((element) => {
+        getServerInfo().then((serverInfo) => {
+            serverInfo.players.forEach((player) => {
+                const img = document.createElement('img');
+                img.classList.add('bannerplayerhead');
+                img.src = `{{ path('api/playerhead') }}?s=18&p=${player.uuid}`;
+                img.title = player.name;
+                element.appendChild(img);
+            });
+        });
+    });
+});

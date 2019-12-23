@@ -18,12 +18,12 @@ class SimplePageController
 
     public function homepageAction(Request $request, Response $response): void
     {
-        $response->setContent('home');
+        $response->setContent($this->viewRenderer->renderView('page/home.html.twig'));
     }
 
     public function notFoundAction(Request $request, Response $response): void
     {
         $response->setStatusCode(Response::HTTP_NOT_FOUND);
-        $response->setContent($this->viewRenderer->renderView('not-found.phtml'));
+        $response->setContent($this->viewRenderer->renderView('not-found.html.twig'));
     }
 }
