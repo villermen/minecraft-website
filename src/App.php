@@ -25,7 +25,7 @@ class App
 
         $path = $request->getPathInfo();
 
-        $container = $this->createContainer();
+        $container = self::createContainer();
 
         $route = (self::ROUTES[$path] ?? null);
 
@@ -39,7 +39,7 @@ class App
         return $response;
     }
 
-    protected function createContainer(): ContainerInterface
+    public static function createContainer(): ContainerInterface
     {
         $container = new ContainerBuilder();
         $loader = new YamlFileLoader($container, new FileLocator(AppConfig::PROJECT_ROOT . '/config'));

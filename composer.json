@@ -25,7 +25,8 @@
         "symfony/config": "^4.4",
         "twig/twig": "^2.12",
         "xpaw/php-minecraft-query": "^3.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.4"
