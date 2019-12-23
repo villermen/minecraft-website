@@ -12,7 +12,12 @@
     <body>
         <div class="body">
             <div class="bannercontainer">
-                <img class="banner" src="{{ path('css/banner_title.png') }}" alt="" style="background-image:url('{{ random_banner() }}')" />
+                <img
+                    class="banner"
+                    src="{{ path('img/banner-overlay.png') }}"
+                    alt=""
+                    style="background-image:url('{{ random_banner() }}')"
+                />
                 <div class='bannertext bannersubtitle'>A minecraft creative/survival server</div>
                 <div class='bannertext bannerversion'></div>
                 <a href="{{ path('/online') }}" class="bannertext bannerplayers"></a>
