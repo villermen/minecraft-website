@@ -22,10 +22,19 @@ class PlayerHeadGenerator
             throw new \InvalidArgumentException(sprintf('Unsupported player head size "%s".', $size));
         }
 
-        $cacheFile = $this->config['project_root'] . sprintf('/cache/head-%s-%s.png', $profile->getRawUuid(), $size);
+        $cacheDirectory = $this->config['project_root'] . '/cache';
 
-        if (file_exists($cacheFile) && filemtime($cacheFile) >= time() - self::HEAD_CACHE_TIME) {
-            return file_get_contents($cacheFile);
+        $headFile = $cacheDirectory . sprintf('/head-%s-%s.png', $profile->getRawUuid(), $size);
+
+        if (file_exists($headFile) && filemtime($headFile) >= time() - self::HEAD_CACHE_TIME) {
+            return file_get_contents($headFile);
+        }
+
+        // Clean up cache (we're doing heavy stuff now anyway)
+        foreach (glob($cacheDirectory . '/head-*-*.png') as $cacheFile) {
+            if (filemtime($cacheFile) < time() - self::HEAD_CACHE_TIME) {
+                unlink($cacheFile);
+            }
         }
 
         $skinUrl = ($profile->getSkinUrl() ?? $this->config['project_root'] . '/resource/steve-skin.png');
@@ -40,7 +49,7 @@ class PlayerHeadGenerator
         imagecopyresized($headGd, $skinGd, 0, 0, 40, 8, $size, $size, 8, 8);
         imagedestroy($skinGd);
 
-        imagepng($headGd, $cacheFile);
-        return file_get_contents($cacheFile);
+        imagepng($headGd, $headFile);
+        return file_get_contents($headFile);
     }
 }
