@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% set title = 'Basic commands' %}
+
+{% block content %}
+    <h1>Basic commands</h1>
+    <p>
+        Below is a list of basic commands that any member will have access to.
+        There are other (less useful) commands available, but you can figure them out as you go.
+    </p>
+    <ul>
+        <li><code>/who</code> - See who is currently online and in what world they are. Don't forget you can also use [Tab].</li>
+        <li><code>/i [itemname] [amount]</code> - Give yourself items.</li>
+        <li><code>/gamemode [survival/creative/...]</code> - Change your gamemode.</li>
+        <li><code>/heal</code> - Heal yourself.</li>
+        <li><code>/spawn</code> - Get back to the spawn.</li>
+        <li><code>/warp [worldname]</code> - Warp to a specific world on the server.</li>
+        <li><code>/warp [warpname]</code> - Teleport to the given warp. (Tip: Use <code>/to</code> instead for autocompletion)</li>
+        <li><code>/warp list [-c creator -w world]</code> - List all or specific warps.</li>
+        <li><code>/warp create [warpname]</code> - Create a new warp with the given name at your current location.</li>
+        <li><code>/slay</code> - Kill yourself =S</li>
+        <li><code>/tpa [playername]</code> - Request a teleport to a player.</li>
+        <li><code>/tpauto</code> - Automatically accept teleport requests.</li>
+        <li><code>/msg [playername] [message]</code> - Message a player in private.</li>
+        <li><code>/r [message]</code> - Reply to the last received message.</li>
+        <li><code>/mail [send/read/clear]</code> - Send and receive mail. The receiving player will be notified of mails when they log in.</li>
+        <li><code>/whereami [playername]</code> - Get your location.</li>
+        <li><code>/clear [**]</code> - Remove your inventory [and gear].</li>
+        <li><code>/ping</code> - Get a response from the server to see if you experience any lag.</li>
+        <li><code>/home</code> & <code>/sethome</code> - Teleport to and set your home. You can only have one home across all worlds.</li>
+        <li><code>/afk</code> - Set your status to Away From Keyboard. This happens automatically after 5 minutes of inactivity.</li>
+        <li><code>/ignore [player]</code> - Ignore someone (stop receiving messages and chat from them).</li>
+        <li><code>/ptime [@][day/night/dawn/...]</code> - Set your own time to a custom value, @ fixes it so it stays the same.</li>
+    </ul>
+    <p>
+        Note that most of the utility commands (like <code>/spawn</code>) will work in any world, but not all commands will work in vanilla.
+    </p>
+    <p>
+        Check out the <a href="{{ path('/donating') }}">donating page</a> to see what additional commands and features are are available to donators.
+    </p>
+{% endblock %}

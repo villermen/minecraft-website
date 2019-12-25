@@ -1,0 +1,12 @@
+{% extends '../layout.html.twig' %}
+
+{% set title = 'Page not found' %}
+
+{% block content %}
+    <h1>Page not found</h1>
+    <p>
+        The requested page could not be found.
+        Please make sure the URL is typed correctly.
+        If another page on this website led you here, please <a href="{{ path('/contact') }}">inform me about it</a>.
+    </p>
+{% endblock %}

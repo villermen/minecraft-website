@@ -1,6 +1,6 @@
 app:
     base_path: '/'
-    minecraft_server_host: 'viller.men'
+    minecraft_server_host: localhost
     minecraft_server_port: 25565
     database_host: localhost
     database_port: 3306

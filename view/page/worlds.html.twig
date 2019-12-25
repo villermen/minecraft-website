@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% set title = 'Worlds' %}
+
+{% block content %}
+    <h1>Worlds</h1>
+    <h2 class="mc4" id="creative">Creative</h2>
+    <p>
+        Creative is a heavily customized Minecraft world.
+        A lot of cheat-commands can be used here, and creative mode is active (but can be switched).
+        Mobs, weather, and almost all automatic events (like spreading of mushrooms) are disabled in this world.
+        You can request to have your building or area protected using WorldGuard so that only you and a few others can build there.
+        Members have build all sort of builds that can be reached with warps.
+    </p>
+
+    <h2 class="mc9" id="vanilla">Vanilla</h2>
+    <p>
+        Vanilla is the survival world on the server.
+        This world has almost the same settings as good old single player, and any command considered a cheat is disabled here.
+        Mobs are on normal mode.
+        Vanilla has an additional plugin called Lockette that allows you to lock your chests from others.
+        Check out the information kiosk at the spawn to figure out how it works.
+    </p>
+
+    <h2 class="mc2" id="flatland">Flatland</h2>
+    <p>
+        Flatland is a completely flat world where only donators can build.
+        There's some other features donators can use here, they can all be found on the <a href="{{ path('/donating') }}">donating page</a>.
+    </p>
+
+    <h2 class="mc5" id="pixelart">Pixelart</h2>
+    <p>
+        Pixelart is exactly the same as creative, but it's completely flat and meant only for pixelart.
+        Nothing is keeping you from building pixelart in the other worlds, but if you want to show off your pixelart skills this is the place.
+    </p>
+{% endblock %}

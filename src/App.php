@@ -18,6 +18,11 @@ class App
         '/' => [SimplePageController::class, 'homepageAction'],
         '/rules' => [SimplePageController::class, 'rulesAction'],
         '/online' => [SimplePageController::class, 'onlineAction'],
+        '/webdev' => [SimplePageController::class, 'webdevAction'],
+        '/contact' => [SimplePageController::class, 'contactAction'],
+        '/donating' => [SimplePageController::class, 'donatingAction'],
+        '/worlds' => [SimplePageController::class, 'worldsAction'],
+        '/commands' => [SimplePageController::class, 'commandsAction'],
         '/api/server-info' => [ApiController::class, 'serverInfoAction'],
         '/api/player-head' => [ApiController::class, 'playerHeadAction'],
     ];

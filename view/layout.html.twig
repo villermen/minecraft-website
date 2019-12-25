@@ -18,7 +18,7 @@
                     alt=""
                     style="background-image:url('{{ random_banner() }}')"
                 />
-                <div class='bannertext bannersubtitle'>A minecraft creative/survival server</div>
+                <div class='bannertext bannersubtitle'>A creative/survival Minecraft server</div>
                 <div class='bannertext bannerversion'></div>
                 <a href="{{ path('/online') }}" class="bannertext bannerplayers"></a>
             </div>
@@ -29,7 +29,7 @@
                 <div class="navbarspacer"></div>
                 <a class="navbarlink{% if request.pathInfo == '/worlds' %} active{% endif %}" href="{{ path('/worlds') }}">Worlds</a>
                 <div class="navbarspacer"></div>
-                <a class="navbarlink{% if request.pathInfo == '/ranks' %} active{% endif %}" href="{{ path('/ranks') }}">Ranks</a>
+                <a class="navbarlink{% if request.pathInfo == '/commands' %} active{% endif %}" href="{{ path('/commands') }}">Commands</a>
                 <div class="navbarspacer"></div>
                 <a class="navbarlink{% if request.pathInfo == '/rules' %} active{% endif %}" href="{{ path('/rules') }}">Rules</a>
                 <div class="navbarspacer"></div>
@@ -47,8 +47,8 @@
                 ©2011-{{ 'now'|date('Y') }} Villermen -
                 <span title="Current server time ({{ 'now'|date('T') }})">{{ 'now'|date('G:i') }}</span> -
                 <a href="{{ path('/contact') }}">contact</a> -
-                <a href="{{ path('/webdevelopment') }}">
-                    <img class="webdevelopmenticon" alt="Webdev" src="{{ path('css/chromefirefox.png') }}" />
+                <a href="{{ path('/webdev') }}">
+                    <img class="webdevelopmenticon" alt="Webdev" src="{{ path('/img/chromefirefox.png') }}" />
                 </a>
             </div>
         </div>

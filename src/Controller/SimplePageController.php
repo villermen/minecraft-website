@@ -38,9 +38,34 @@ class SimplePageController
         ]));
     }
 
+    public function webdevAction(Request $request, Response $response): void
+    {
+        $response->setContent($this->viewRenderer->renderView('page/webdev.html.twig'));
+    }
+
+    public function contactAction(Request $request, Response $response): void
+    {
+        $response->setContent($this->viewRenderer->renderView('page/contact.html.twig'));
+    }
+
+    public function donatingAction(Request $request, Response $response): void
+    {
+        $response->setContent($this->viewRenderer->renderView('page/donating.html.twig'));
+    }
+
+    public function worldsAction(Request $request, Response $response): void
+    {
+        $response->setContent($this->viewRenderer->renderView('page/worlds.html.twig'));
+    }
+
+    public function commandsAction(Request $request, Response $response): void
+    {
+        $response->setContent($this->viewRenderer->renderView('page/commands.html.twig'));
+    }
+
     public function notFoundAction(Request $request, Response $response): void
     {
         $response->setStatusCode(Response::HTTP_NOT_FOUND);
-        $response->setContent($this->viewRenderer->renderView('not-found.html.twig'));
+        $response->setContent($this->viewRenderer->renderView('page/not-found.html.twig'));
     }
 }
