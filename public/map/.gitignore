@@ -2,4 +2,4 @@
 /tiles
 
 # Updated dynamically by plugin
-/standalone/dynmap_*.json
+/standalone/dynmap_*
