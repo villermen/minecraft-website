@@ -6,11 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Villermen\Minecraft\Service\MojangProfileService;
 use Villermen\Minecraft\Service\PlayerHeadGenerator;
-use Villermen\Minecraft\Service\ServerinfoService;
+use Villermen\Minecraft\Service\ServerInfoService;
 
 class ApiController
 {
-    /** @var ServerinfoService */
+    /** @var ServerInfoService */
     protected $serverinfoService;
 
     /** @var MojangProfileService */
@@ -20,7 +20,7 @@ class ApiController
     protected $playerHeadGenerator;
 
     public function __construct(
-        ServerinfoService $serverinfoService,
+        ServerInfoService $serverinfoService,
         MojangProfileService $mojangProfileService,
         PlayerHeadGenerator $playerHeadGenerator
     ) {
@@ -32,7 +32,7 @@ class ApiController
     public function serverInfoAction(Request $request, Response $response): void
     {
         $response->headers->set('Content-Type', 'application/json');
-        $response->setContent(json_encode($this->serverinfoService->getServerinfo()));
+        $response->setContent(json_encode($this->serverinfoService->getServerInfo()));
     }
 
     public function playerHeadAction(Request $request, Response $response): void

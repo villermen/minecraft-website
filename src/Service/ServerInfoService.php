@@ -4,7 +4,7 @@ namespace Villermen\Minecraft\Service;
 
 use xPaw\MinecraftPing;
 
-class ServerinfoService
+class ServerInfoService
 {
     /** @var AppConfig */
     protected $config;
@@ -14,7 +14,7 @@ class ServerinfoService
         $this->config = $config;
     }
 
-    public function getServerinfo(): array
+    public function getServerInfo(): array
     {
         $ping = new MinecraftPing($this->config['minecraft_server_host'], $this->config['minecraft_server_port']);
         $info = $ping->Query();

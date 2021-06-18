@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Villermen\Minecraft\Controller\ApiController;
+use Villermen\Minecraft\Controller\DonationController;
 use Villermen\Minecraft\Controller\SimplePageController;
 use Villermen\Minecraft\Service\AppConfig;
 
@@ -20,7 +21,7 @@ class App
         '/online' => [SimplePageController::class, 'onlineAction'],
         '/webdev' => [SimplePageController::class, 'webdevAction'],
         '/contact' => [SimplePageController::class, 'contactAction'],
-        '/donating' => [SimplePageController::class, 'donatingAction'],
+        '/donating' => [DonationController::class, 'donatingAction'],
         '/worlds' => [SimplePageController::class, 'worldsAction'],
         '/commands' => [SimplePageController::class, 'commandsAction'],
         '/api/server-info' => [ApiController::class, 'serverInfoAction'],

@@ -4,7 +4,7 @@ namespace Villermen\Minecraft\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Villermen\Minecraft\Service\ServerinfoService;
+use Villermen\Minecraft\Service\ServerInfoService;
 use Villermen\Minecraft\Service\ViewRenderer;
 
 class SimplePageController
@@ -12,13 +12,13 @@ class SimplePageController
     /** @var ViewRenderer */
     protected $viewRenderer;
 
-    /** @var ServerinfoService */
-    protected $serverinfoService;
+    /** @var ServerInfoService */
+    protected $serverInfoService;
 
-    public function __construct(ViewRenderer $viewRenderer, ServerinfoService $serverinfoService)
+    public function __construct(ViewRenderer $viewRenderer, ServerInfoService $serverInfoService)
     {
         $this->viewRenderer = $viewRenderer;
-        $this->serverinfoService = $serverinfoService;
+        $this->serverInfoService = $serverInfoService;
     }
 
     public function homepageAction(Request $request, Response $response): void
@@ -34,7 +34,7 @@ class SimplePageController
     public function onlineAction(Request $request, Response $response): void
     {
         $response->setContent($this->viewRenderer->renderView('page/online.html.twig', [
-            'players' => $this->serverinfoService->getServerinfo()['players'],
+            'players' => $this->serverInfoService->getServerInfo()['players'],
         ]));
     }
 
@@ -46,11 +46,6 @@ class SimplePageController
     public function contactAction(Request $request, Response $response): void
     {
         $response->setContent($this->viewRenderer->renderView('page/contact.html.twig'));
-    }
-
-    public function donatingAction(Request $request, Response $response): void
-    {
-        $response->setContent($this->viewRenderer->renderView('page/donating.html.twig'));
     }
 
     public function worldsAction(Request $request, Response $response): void
