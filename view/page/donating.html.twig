@@ -66,24 +66,15 @@
         )) %}
         {% set thirdSize = (donations|length / 3)|round(0, 'floor') %}
         {% set remainder = (donations|length % 3) %}
-        {% set tableSizes = {
-            one: thirdSize,
-            two: thirdSize,
-            three: thirdSize,
-        } %}
-        {% if remainder == 2 %}
-            {% set tableSizes = tableSizes|merge({
-                one: thirdSize + 1,
-                three: thirdSize + 1,
-            }) %}
-        {% elseif remainder == 1 %}
-            {% set tableSizes = tableSizes|merge({
-                two: thirdSize + 1,
-            }) %}
-        {% endif %}
-        {{ _self.donation_table(donations|slice(0, tableSizes.one)) }}
-        {{ _self.donation_table(donations|slice(tableSizes.one, tableSizes.two)) }}
-        {{ _self.donation_table(donations|slice(tableSizes.one + tableSizes.two, tableSizes.three)) }}
+        {% set tableSizes = (remainder == 2
+            ? [thirdSize + 1, thirdSize, thirdSize + 1]
+            : (remainder == 1
+                ? [thirdSize, thirdSize + 1, thirdSize]
+                : [thirdSize, thirdSize, thirdSize]
+        )) %}
+        {{ _self.donation_table(donations|slice(0, tableSizes[0])) }}
+        {{ _self.donation_table(donations|slice(tableSizes[0], tableSizes[1])) }}
+        {{ _self.donation_table(donations|slice(tableSizes[0] + tableSizes[1], tableSizes[2])) }}
     </div>
 
     <h2>WorldEdit</h2>
