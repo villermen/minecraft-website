@@ -1,35 +1,35 @@
 let serverInfoPromise = null;
-function getServerInfo() {
+async function getServerInfo() {
     if (serverInfoPromise !== null) {
         return serverInfoPromise;
     }
 
-    serverInfoPromise = fetch('{{ path('/api/server-info') }}').then((response) => {
-        if (response.ok) {
-            return response.json();
+    serverInfoPromise = new Promise(async (resolve, reject) => {
+        const response = await fetch('{{ path('/api/server-info') }}').then(response => response.json());
+        if (!response.success) {
+            reject(response.message);
         }
 
-        return Promise.reject('Could not load server info.');
+        resolve(response);
     });
+
     return serverInfoPromise;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.bannerversion').forEach((element) => {
-        getServerInfo().then((serverInfo) => {
-            element.textContent = `Minecraft ${serverInfo.version}`;
-        });
+    document.querySelectorAll('.bannerversion').forEach(async (element) => {
+        const serverInfo = await getServerInfo();
+        element.textContent = `Minecraft ${serverInfo.version}`;
     });
 
-    document.querySelectorAll('.bannerplayers').forEach((element) => {
-        getServerInfo().then((serverInfo) => {
-            serverInfo.players.forEach((player) => {
-                const img = document.createElement('img');
-                img.classList.add('bannerplayerhead');
-                img.src = `{{ path('api/player-head') }}?size=18&player=${player.uuid}`;
-                img.title = player.name;
-                element.appendChild(img);
-            });
+    document.querySelectorAll('.bannerplayers').forEach(async (element) => {
+        const serverInfo = await getServerInfo();
+        serverInfo.players.forEach((player) => {
+            const img = document.createElement('img');
+            img.classList.add('bannerplayerhead');
+            img.src = `{{ path('api/player-head') }}?size=18&player=${player.uuid}`;
+            img.title = player.name;
+            element.appendChild(img);
         });
     });
 });

@@ -2,6 +2,7 @@
 
 namespace Villermen\Minecraft\Service;
 
+use Villermen\Minecraft\Exception\ProfileFetchException;
 use Villermen\Minecraft\Model\MojangProfile;
 
 class MojangProfileService
@@ -64,6 +65,9 @@ class MojangProfileService
         );
     }
 
+    /**
+     * @throws ProfileFetchException
+     */
     private function fetchProfileByName(string $name): MojangProfile
     {
         $name = strtolower($name);
@@ -90,14 +94,16 @@ class MojangProfileService
         );
 
         if (!$response || isset($response['error'])) {
-            // TODO: Custom exception
-            throw new \Exception('Could not retrieve UUID by username from Mojang API.');
+            throw new ProfileFetchException('Could not retrieve UUID by username from Mojang API.');
         }
 
         return $this->fetchProfileByUuid($response['id']);
     }
 
-    protected function fetchProfileByUuid(string $rawUuid): MojangProfile
+    /**
+     * @throws ProfileFetchException
+     */
+    private function fetchProfileByUuid(string $rawUuid): MojangProfile
     {
         // Local cache
         $cachedProfiles = array_values(array_filter($this->localCache, function (MojangProfile $profile) use ($rawUuid) {
@@ -121,8 +127,7 @@ class MojangProfileService
         );
 
         if (!$response || isset($response['error'])) {
-            // TODO: Custom exception
-            throw new \Exception('Could not retrieve profile by UUID from Mojang API.');
+            throw new ProfileFetchException('Could not retrieve profile by UUID from Mojang API.');
         }
 
         $name = $response['name'];

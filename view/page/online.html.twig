@@ -5,11 +5,15 @@
 {% block content %}
     <h1>Players currently online</h1>
     <div class="center">
-        {% for player in players %}
-            <div class="horizontalsection">
-                <img src="{{ path('/api/player-head?size=36&player=' ~ player.uuid) }}" alt="{{ player.name }}" />
-                <div>{{ player.name }}</div>
-            </div>
-        {% endfor %}
+        {% if error is null %}
+            {% for player in players %}
+                <div class="horizontalsection">
+                    <img src="{{ path('/api/player-head?size=36&player=' ~ player.uuid) }}" alt="{{ player.name }}" />
+                    <div>{{ player.name }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+            {{ error }}
+        {% endif %}
     </div>
 {% endblock %}

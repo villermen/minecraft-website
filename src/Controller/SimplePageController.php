@@ -4,6 +4,7 @@ namespace Villermen\Minecraft\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Villermen\Minecraft\Exception\ServerQueryException;
 use Villermen\Minecraft\Service\ServerInfoService;
 use Villermen\Minecraft\Service\ViewRenderer;
 
@@ -30,8 +31,17 @@ class SimplePageController
 
     public function onlineAction(Request $request, Response $response): void
     {
+        $players = [];
+        $error = null;
+        try {
+            $players = $this->serverInfoService->getServerInfo()['players'];
+        } catch (ServerQueryException $exception) {
+            $error = $exception->getMessage();
+        }
+
         $response->setContent($this->viewRenderer->renderView('page/online.html.twig', [
-            'players' => $this->serverInfoService->getServerInfo()['players'],
+            'players' => $players,
+            'error' => $error,
         ]));
     }
 

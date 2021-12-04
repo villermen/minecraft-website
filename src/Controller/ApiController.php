@@ -4,6 +4,7 @@ namespace Villermen\Minecraft\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Villermen\Minecraft\Exception\ServerQueryException;
 use Villermen\Minecraft\Service\MojangProfileService;
 use Villermen\Minecraft\Service\PlayerHeadGenerator;
 use Villermen\Minecraft\Service\ServerInfoService;
@@ -27,7 +28,18 @@ class ApiController
     public function serverInfoAction(Request $request, Response $response): void
     {
         $response->headers->set('Content-Type', 'application/json');
-        $response->setContent(json_encode($this->serverinfoService->getServerInfo()));
+
+        try {
+            $serverInfo = $this->serverinfoService->getServerInfo();
+            $response->setContent(json_encode(array_merge($serverInfo, [
+                'success' => true,
+            ])));
+        } catch (ServerQueryException $exception) {
+            $response->setContent(json_encode([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ]));
+        }
     }
 
     public function playerHeadAction(Request $request, Response $response): void
