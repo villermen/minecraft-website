@@ -19,7 +19,9 @@ async function getServerInfo() {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.bannerversion').forEach(async (element) => {
         const serverInfo = await getServerInfo();
-        element.textContent = `Minecraft ${serverInfo.version}`;
+        if (serverInfo.version) {
+            element.textContent = `Minecraft ${serverInfo.version}`;
+        }
     });
 
     document.querySelectorAll('.bannerplayers').forEach(async (element) => {
