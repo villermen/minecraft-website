@@ -8,6 +8,10 @@
             "email": "villermen@gmail.com"
         }
     ],
+    "scripts": {
+        "cache:clear": "rm -f cache/*",
+        "post-install-cmd": "@cache:clear"
+    },
     "autoload": {
         "psr-4": {
             "Villermen\\Minecraft\\": "src/"
@@ -15,10 +19,12 @@
     },
     "config": {
         "platform": {
-            "php": "7.2.34"
-        }
+            "php": "7.4.26"
+        },
+        "sort-packages": true
     },
     "require": {
+        "php": "^7.4.0",
         "symfony/http-foundation": "^4.4",
         "symfony/dependency-injection": "^4.4",
         "symfony/yaml": "^4.4",
@@ -26,7 +32,6 @@
         "twig/twig": "^2.12",
         "xpaw/php-minecraft-query": "^3.0",
         "ext-json": "*",
-        "ext-pdo": "*",
         "ext-gd": "*"
     },
     "require-dev": {

@@ -9,11 +9,8 @@ use Villermen\Minecraft\Service\ViewRenderer;
 
 class SimplePageController
 {
-    /** @var ViewRenderer */
-    protected $viewRenderer;
-
-    /** @var ServerInfoService */
-    protected $serverInfoService;
+    private ViewRenderer $viewRenderer;
+    private ServerInfoService $serverInfoService;
 
     public function __construct(ViewRenderer $viewRenderer, ServerInfoService $serverInfoService)
     {

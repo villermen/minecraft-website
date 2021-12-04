@@ -6,8 +6,7 @@ use Twig\TwigFunction;
 
 class TwigExtensions
 {
-    /** @var AppConfig */
-    protected $config;
+    private AppConfig $config;
 
     public function __construct(AppConfig $config)
     {
@@ -27,12 +26,12 @@ class TwigExtensions
 
     public function pathFunction(string $path): string
     {
-        return rtrim($this->config['base_path'], '/') . '/' . ltrim($path, '/');
+        return rtrim($this->config->getBasePath(), '/') . '/' . ltrim($path, '/');
     }
 
     public function randomBannerFunction(): string
     {
-        $bannerGlob = $this->config['project_root'] . '/public/img/banner/*.png';
+        $bannerGlob = $this->config->getProjectRoot() . '/public/img/banner/*.png';
         $banners = glob($bannerGlob);
         $banner = $banners[mt_rand(0, count($banners) - 1)];
         return $this->pathFunction('/img/banner/' . basename($banner));

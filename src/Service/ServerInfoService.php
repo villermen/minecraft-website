@@ -6,8 +6,7 @@ use xPaw\MinecraftPing;
 
 class ServerInfoService
 {
-    /** @var AppConfig */
-    protected $config;
+    private AppConfig $config;
 
     public function __construct(AppConfig $config)
     {
@@ -16,7 +15,7 @@ class ServerInfoService
 
     public function getServerInfo(): array
     {
-        $ping = new MinecraftPing($this->config['minecraft_server_host'], $this->config['minecraft_server_port']);
+        $ping = new MinecraftPing($this->config->getMinecraftServerHost(), $this->config->getMinecraftServerPort());
         $info = $ping->Query();
 
         // Parse only Minecraft component of version ("Spigot 1.15.1" -> "1.15.1")

@@ -4,42 +4,49 @@ namespace Villermen\Minecraft\Service;
 
 use Symfony\Component\Yaml\Yaml;
 
-class AppConfig implements \ArrayAccess
+class AppConfig
 {
     public const PROJECT_ROOT = __DIR__ . '/../..';
 
-    /** @var array */
-    protected $config;
+    private array $config;
 
     public function __construct()
     {
-        $config = Yaml::parseFile(self::PROJECT_ROOT . '/config/app.yml')['app'];
-        $config['project_root'] = self::PROJECT_ROOT;
-
-        $this->config = $config;
+        $this->config = Yaml::parseFile(self::PROJECT_ROOT . '/config/app.yml')['app'];
     }
 
-    public function offsetExists($offset)
+    public function getProjectRoot(): string
     {
-        return isset($this->config[$offset]);
+        return self::PROJECT_ROOT;
     }
 
-    public function offsetGet($offset)
+    public function getCacheDirectory(): string
     {
-        if (!$this->offsetExists($offset)) {
-            throw new \LogicException(sprintf('Config key "%s" does not exist.', $offset));
-        }
-
-        return $this->config[$offset];
+        return sprintf('%s/cache', $this->getProjectRoot());
     }
 
-    public function offsetSet($offset, $value)
+    public function getResourceDirectory(): string
     {
-        throw new \LogicException('Cannot change config values.');
+        return sprintf('%s/resource', $this->getProjectRoot());
     }
 
-    public function offsetUnset($offset)
+    public function getViewDirectory(): string
     {
-        throw new \LogicException('Cannot unset config values.');
+        return sprintf('%s/view', $this->getProjectRoot());
+    }
+
+    public function getMinecraftServerHost(): string
+    {
+        return $this->config['minecraft_server_host'];
+    }
+
+    public function getMinecraftServerPort(): string
+    {
+        return $this->config['minecraft_server_port'];
+    }
+
+    public function getBasePath(): string
+    {
+        return $this->config['base_path'];
     }
 }

@@ -6,17 +6,10 @@ use Villermen\Minecraft\Service\MojangProfileService;
 
 class MojangProfile
 {
-    /** @var string */
-    protected $rawUuid;
-
-    /** @var string */
-    protected $formattedUuid;
-
-    /** @var string */
-    protected $name;
-
-    /** @var string|null */
-    protected $skinUrl;
+    private string $rawUuid;
+    private string $formattedUuid;
+    private string $name;
+    private ?string $skinUrl;
 
     public function __construct(string $rawUuid, string $name, ?string $skinUrl)
     {

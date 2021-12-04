@@ -6,17 +6,16 @@ use Villermen\Minecraft\Model\MojangProfile;
 
 class MojangProfileService
 {
-    protected const DB_CACHE_LIFETIME = (60 * 60);
+    private const FILE_CACHE_LIFETIME = (60 * 60);
 
-    /** @var Database */
-    protected $database;
+    private AppConfig $config;
 
     /** @var MojangProfile[] */
-    protected $localCache = [];
+    private array $localCache = [];
 
-    public function __construct(Database $database)
+    public function __construct(AppConfig $config)
     {
-        $this->database = $database;
+        $this->config = $config;
     }
 
     public function resolveProfile(string $nameOrUuid): MojangProfile
@@ -65,7 +64,7 @@ class MojangProfileService
         );
     }
 
-    protected function fetchProfileByName(string $name): MojangProfile
+    private function fetchProfileByName(string $name): MojangProfile
     {
         $name = strtolower($name);
 
@@ -77,15 +76,11 @@ class MojangProfileService
             return $cachedProfiles[0];
         }
 
-        // DB cache
-        $result = $this->database->query('SELECT raw_uuid, name, skin_url FROM profile_cache WHERE name = :name AND cache_time >= :minimum_cache_time', [
-            'name' => $name,
-            'minimum_cache_time' => (time() - self::DB_CACHE_LIFETIME),
-        ]);
-        if (count($result) > 0) {
-            $profile = new MojangProfile($result[0]['raw_uuid'], $result[0]['name'], $result[0]['skin_url']);
-            $this->localCache[] = $profile;
-            return $profile;
+        // File cache
+        $fileProfile = $this->getFileCacheProfile(null, $name);
+        if ($fileProfile) {
+            $this->localCache[] = $fileProfile;
+            return $fileProfile;
         }
 
         // Convert to UUID using Mojang. We can't get skin URL in one go so we reuse fetchProfileByUuid() for that
@@ -112,15 +107,11 @@ class MojangProfileService
             return $cachedProfiles[0];
         }
 
-        // DB cache
-        $result = $this->database->query('SELECT raw_uuid, name, skin_url FROM profile_cache WHERE raw_uuid = :raw_uuid AND cache_time >= :minimum_cache_time', [
-            'raw_uuid' => $rawUuid,
-            'minimum_cache_time' => (time() - self::DB_CACHE_LIFETIME),
-        ]);
-        if (count($result) > 0) {
-            $profile = new MojangProfile($result[0]['raw_uuid'], $result[0]['name'], $result[0]['skin_url']);
-            $this->localCache[] = $profile;
-            return $profile;
+        // File cache
+        $fileProfile = $this->getFileCacheProfile($rawUuid, null);
+        if ($fileProfile) {
+            $this->localCache[] = $fileProfile;
+            return $fileProfile;
         }
 
         // Call Mojang
@@ -152,17 +143,74 @@ class MojangProfileService
         return $profile;
     }
 
-    protected function addToCache(MojangProfile $profile): void
+    private function addToCache(MojangProfile $profile): void
     {
         $this->localCache[] = $profile;
-        $this->database->query('INSERT INTO profile_cache
-            (raw_uuid, name, skin_url, cache_time) VALUES (:raw_uuid, :name, :skin_url, :cache_time)
-            ON DUPLICATE KEY UPDATE name=:name, cache_time=:cache_time, skin_url=:skin_url
-        ', [
+
+        foreach (array_unique(array_merge(
+            $this->getCacheFiles($profile->getRawUuid(), null),
+            $this->getCacheFiles(null, $profile->getName()),
+        )) as $cacheFile) {
+            unlink($cacheFile);
+        }
+        file_put_contents(sprintf(
+            '%s/profile-%s-%s.json',
+            $this->config->getCacheDirectory(),
+            $profile->getRawUuid(),
+            $profile->getName()
+        ), json_encode([
             'raw_uuid' => $profile->getRawUuid(),
             'name' => $profile->getName(),
             'skin_url' => $profile->getSkinUrl(),
-            'cache_time' => time(),
-        ]);
+        ]));
+    }
+
+    private function getFileCacheProfile(?string $uuid, ?string $name): ?MojangProfile
+    {
+        $cacheFiles = $this->getCacheFiles($uuid, $name);
+        if (count($cacheFiles) === 0) {
+            return null;
+        }
+        if (count($cacheFiles) > 1) {
+            throw new \Exception('Multiple cache files for the same profile were obtained.');
+        }
+
+        if (filemtime($cacheFiles[0]) < time() - self::FILE_CACHE_LIFETIME) {
+            return null;
+        }
+
+        $cachedData = json_decode(file_get_contents($cacheFiles[0]), true);
+        return new MojangProfile(
+            $cachedData['raw_uuid'],
+            $cachedData['name'],
+            $cachedData['skin_url'],
+        );
+    }
+
+    private function getCacheFiles(?string $uuid, ?string $name): array
+    {
+        if (!$uuid && !$name) {
+            throw new \InvalidArgumentException('At least one of UUID and name must be supplied.');
+        }
+
+        if ($uuid) {
+            $uuid = strtolower($uuid);
+            if (!preg_match('/^[a-f0-9]+$/', $uuid)) {
+                throw new \InvalidArgumentException('UUID has an invalid format.');
+            }
+        } else {
+            $uuid = '*';
+        }
+
+        if ($name) {
+            $name = strtolower($name);
+            if (!preg_match('/^[a-z0-9_]+$/', $name)) {
+                throw new \InvalidArgumentException('Name has an invalid format.');
+            }
+        } else {
+            $name = '*';
+        }
+
+        return glob(sprintf('%s/profile-%s-%s.json', $this->config->getCacheDirectory(), $uuid, $name));
     }
 }

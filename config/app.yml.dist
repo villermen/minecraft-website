@@ -2,8 +2,3 @@ app:
     base_path: '/'
     minecraft_server_host: localhost
     minecraft_server_port: 25565
-    database_host: localhost
-    database_port: 3306
-    database_database: minecraft
-    database_username: minecraft
-    database_password: minecraft

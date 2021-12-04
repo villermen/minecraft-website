@@ -721,8 +721,7 @@ class DonationController
         ],
     ];
 
-    /** @var ViewRenderer */
-    private $viewRenderer;
+    private ViewRenderer $viewRenderer;
 
     public function __construct(ViewRenderer $viewRenderer)
     {

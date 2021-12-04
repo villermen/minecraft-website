@@ -6,10 +6,9 @@ use Villermen\Minecraft\Model\MojangProfile;
 
 class PlayerHeadGenerator
 {
-    protected const HEAD_CACHE_TIME = (60 * 60);
+    private const HEAD_CACHE_TIME = (60 * 60);
 
-    /** @var AppConfig */
-    protected $config;
+    private AppConfig $config;
 
     public function __construct(AppConfig $config)
     {
@@ -22,7 +21,7 @@ class PlayerHeadGenerator
             throw new \InvalidArgumentException(sprintf('Unsupported player head size "%s".', $size));
         }
 
-        $cacheDirectory = $this->config['project_root'] . '/cache';
+        $cacheDirectory = $this->config->getCacheDirectory();
 
         $headFile = $cacheDirectory . sprintf('/head-%s-%s.png', $profile->getRawUuid(), $size);
 
@@ -37,7 +36,7 @@ class PlayerHeadGenerator
             }
         }
 
-        $skinUrl = ($profile->getSkinUrl() ?? $this->config['project_root'] . '/resource/steve-skin.png');
+        $skinUrl = ($profile->getSkinUrl() ?? $this->config->getResourceDirectory() . '/steve-skin.png');
 
         $skinGd = @imagecreatefromstring(file_get_contents($skinUrl));
         $headGd = imagecreatetruecolor($size, $size);

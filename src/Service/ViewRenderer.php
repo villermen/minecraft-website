@@ -8,12 +8,11 @@ use Twig\Loader\FilesystemLoader;
 
 class ViewRenderer
 {
-    /** @var Environment */
-    protected $twig;
+    private Environment $twig;
 
     public function __construct(AppConfig $config, TwigExtensions $twigExtensions, ContainerInterface $container)
     {
-        $loader = new FilesystemLoader($config['project_root'] . '/view');
+        $loader = new FilesystemLoader($config->getViewDirectory());
         $this->twig = new Environment($loader);
 
         foreach ($twigExtensions->createFunctions() as $twigFunction) {

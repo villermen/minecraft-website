@@ -10,14 +10,9 @@ use Villermen\Minecraft\Service\ServerInfoService;
 
 class ApiController
 {
-    /** @var ServerInfoService */
-    protected $serverinfoService;
-
-    /** @var MojangProfileService */
-    protected $mojangProfileService;
-
-    /** @var PlayerHeadGenerator */
-    protected $playerHeadGenerator;
+    private ServerInfoService $serverinfoService;
+    private MojangProfileService $mojangProfileService;
+    private PlayerHeadGenerator $playerHeadGenerator;
 
     public function __construct(
         ServerInfoService $serverinfoService,

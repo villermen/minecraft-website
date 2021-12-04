@@ -7,9 +7,5 @@ services:
         resource: '../src/Controller/*'
         public: true
 
-    Villermen\Minecraft\Migration\:
-        resource: '../src/Migration/*'
-        public: true
-
     Villermen\Minecraft\Service\:
         resource: '../src/Service/*'
