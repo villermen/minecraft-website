@@ -28,20 +28,24 @@ class ServerInfoService
             );
             $info = $ping->Query();
 
+            if (!$info || !$info['version']) {
+                throw new ServerQueryException(
+                    'Failed to query server. It\'s probably busy doing something weird again.'
+                );
+            }
+
             // Parse only Minecraft component of version ("Spigot 1.15.1" -> "1.15.1")
             $version = null;
-            if (preg_match('/([\d\.]+)$/', $info['version']['name'], $matches)) {
+            if (preg_match('/([\d.]+)$/', ($info['version']['name'] ?? ''), $matches)) {
                 $version = $matches[1];
             }
 
             $players = [];
-            if (isset($info['players']['sample'])) {
-                foreach ($info['players']['sample'] as $player) {
-                    $players[] = [
-                        'uuid' => $player['id'],
-                        'name' => $player['name'],
-                    ];
-                }
+            foreach (($info['players']['sample'] ?? []) as $player) {
+                $players[] = [
+                    'uuid' => $player['id'],
+                    'name' => $player['name'],
+                ];
             }
 
             return [

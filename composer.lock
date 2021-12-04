@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45319063bb80ceb89dfd2f3a46dc00f2",
+    "content-hash": "cd06c33f53345ce6092b1a5d9325dfa9",
     "packages": [
         {
             "name": "psr/container",
@@ -1303,20 +1303,20 @@
         },
         {
             "name": "xpaw/php-minecraft-query",
-            "version": "3.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xPaw/PHP-Minecraft-Query.git",
-                "reference": "881072933d4537f334ce96ebcf687868c100fbb9"
+                "reference": "c7257e7c3d18c14cd476910f1516f93f405f54ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xPaw/PHP-Minecraft-Query/zipball/881072933d4537f334ce96ebcf687868c100fbb9",
-                "reference": "881072933d4537f334ce96ebcf687868c100fbb9",
+                "url": "https://api.github.com/repos/xPaw/PHP-Minecraft-Query/zipball/c7257e7c3d18c14cd476910f1516f93f405f54ee",
+                "reference": "c7257e7c3d18c14cd476910f1516f93f405f54ee",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "php": ">=7.0"
             },
             "type": "library",
             "autoload": {
@@ -1333,10 +1333,15 @@
                 "minecraft"
             ],
             "support": {
-                "issues": "https://github.com/xPaw/PHP-Minecraft-Query/issues",
-                "source": "https://github.com/xPaw/PHP-Minecraft-Query/tree/master"
+                "source": "https://github.com/xPaw/PHP-Minecraft-Query/tree/4.0.1"
             },
-            "time": "2019-07-08T10:15:30+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/xPaw",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-06-18T13:18:40+00:00"
         }
     ],
     "packages-dev": [
@@ -1436,9 +1441,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4.26",
-        "ext-json": "*",
-        "ext-gd": "*"
+        "php": "^7.4",
+        "ext-gd": "*",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
