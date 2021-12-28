@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>{% if title is defined %}{{ title }} - {% endif %}Villermen Minecraft Server</title>
+        <title>{% if title is defined %}{{ title }} - {% endif %}Villermen.com, A Minecraft creative/survival server</title>
         <link rel="icon" type="image/x-icon" href="{{ path('favicon.ico') }}" />
         <link type="text/css" rel="stylesheet" href="{{ path('css/default.css') }}" />
         <script>
@@ -18,7 +18,7 @@
                     alt=""
                     style="background-image:url('{{ random_banner() }}')"
                 />
-                <div class='bannertext bannersubtitle'>A creative/survival Minecraft server</div>
+                <div class='bannertext bannersubtitle'>A Minecraft creative/survival server</div>
                 <div class='bannertext bannerversion'></div>
                 <a href="{{ path('/online') }}" class="bannertext bannerplayers"></a>
             </div>
