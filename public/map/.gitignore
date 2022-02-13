@@ -1,5 +1,0 @@
-# Symlinked to HDD storage
-/tiles
-
-# Updated dynamically by plugin
-/standalone/dynmap_*

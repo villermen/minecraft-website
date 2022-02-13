@@ -1,2 +1,5 @@
 /.idea
 /vendor
+
+# Symlinked on production.
+/public/map
