@@ -5,6 +5,7 @@ namespace Villermen\Minecraft;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,14 +49,21 @@ class App
         return $response;
     }
 
-    public static function createContainer(?Request $request = null, ?Response $response = null): ContainerInterface
+    public static function createContainer(Request $request, Response $response): ContainerInterface
     {
         $container = new ContainerBuilder();
+
+        // Allow request to be autowired.
+        $requestDefinition = new Definition(Request::class);
+        $requestDefinition->setSynthetic(true);
+        $container->setDefinition(Request::class, $requestDefinition);
+
         $loader = new YamlFileLoader($container, new FileLocator(AppConfig::PROJECT_ROOT . '/config'));
         $loader->load('services.yml');
-        $container->set('request', ($request ?? new Request()));
-        $container->set('response', ($response ?? new Response()));
         $container->compile();
+
+        $container->set(Request::class, $request);
+
         return $container;
     }
 }

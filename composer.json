@@ -9,6 +9,10 @@
         }
     ],
     "scripts": {
+        "dev-server": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:8080 -t public public/index.php"
+        ],
         "cache:clear": "rm -f cache/*",
         "post-install-cmd": "@cache:clear"
     },
@@ -19,22 +23,22 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.26"
+            "php": "8.2"
         },
         "sort-packages": true
     },
     "require": {
-        "php": "^7.4",
+        "php": ">=8.2",
         "ext-gd": "*",
         "ext-json": "*",
-        "symfony/config": "^4.4",
-        "symfony/dependency-injection": "^4.4",
-        "symfony/http-foundation": "^4.4",
-        "symfony/yaml": "^4.4",
-        "twig/twig": "^2.12",
-        "xpaw/php-minecraft-query": "^4.0"
+        "symfony/config": "^7.3",
+        "symfony/dependency-injection": "^7.3",
+        "symfony/http-foundation": "^7.3",
+        "symfony/yaml": "^7.3",
+        "twig/twig": "^3.22",
+        "xpaw/php-minecraft-query": "^5.0"
     },
     "require-dev": {
-        "symfony/var-dumper": "^4.4"
+        "symfony/var-dumper": "^7.3"
     }
 }
