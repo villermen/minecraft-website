@@ -126,10 +126,10 @@ class DonationController
             'amount' => '$7.50',
         ],
         [
-            'name' => 'candyman106',
+            'name' => 'Candy106',
             'uuid' => 'fa073f23-945c-4d1d-855f-e045b8bdd4bf',
             'date' => '2012-01-07',
-            'amount' => '$7.50',
+            'amount' => '$21.90',
         ],
         [
             'name' => 'ceduna_kids',
