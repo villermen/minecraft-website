@@ -23,12 +23,12 @@
     },
     "config": {
         "platform": {
-            "php": "8.2"
+            "php": "8.3.6"
         },
         "sort-packages": true
     },
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-gd": "*",
         "ext-json": "*",
         "symfony/config": "^7.3",
