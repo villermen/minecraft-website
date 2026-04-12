@@ -719,6 +719,12 @@ class DonationController
             'date' => null,
             'amount' => '$30.00',
         ],
+        [
+            'name' => 'Laztec',
+            'uuid' => '2c856433-9093-443c-b18f-3abb50381a49',
+            'date' => '2026-04-06',
+            'amount' => '$70.00',
+        ],
     ];
 
     private ViewRenderer $viewRenderer;
