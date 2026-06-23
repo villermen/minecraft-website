@@ -31,14 +31,14 @@
         "php": ">=8.3",
         "ext-gd": "*",
         "ext-json": "*",
-        "symfony/config": "^7.3",
-        "symfony/dependency-injection": "^7.3",
-        "symfony/http-foundation": "^7.3",
-        "symfony/yaml": "^7.3",
-        "twig/twig": "^3.22",
+        "symfony/config": "^7.4.10",
+        "symfony/dependency-injection": "^7.4.13",
+        "symfony/http-foundation": "^7.4.13",
+        "symfony/yaml": "^7.4.13",
+        "twig/twig": "^3.27.1",
         "xpaw/php-minecraft-query": "^5.0"
     },
     "require-dev": {
-        "symfony/var-dumper": "^7.3"
+        "symfony/var-dumper": "^7.4.8"
     }
 }
